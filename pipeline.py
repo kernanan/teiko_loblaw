@@ -1,5 +1,8 @@
 import os
 import plotly.express as px
+import plotly.io as pio
+
+pio.kaleido.scope.chromium_args += ("--no-sandbox",)
 
 from load_data import init_db, load_csv
 from analysis import (
