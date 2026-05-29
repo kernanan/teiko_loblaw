@@ -16,12 +16,12 @@ To run my program run the following 3 commands:
 
 **DATABASE DESIGN: **
 
-My SQL design is made up of two tables: Subjects and Samples.
+My SQL design is made up of two tables: Subjects->*Samples in a one to many relationship.
 
-Two main reasons why it was split this way:
-1. Bob's overarching goal was to find whether a subject reacted to miraclib via blood samples.
-2. Subject metadata like sex, condition,
-and treatment are facts about a person that do not change between samples.
+Three main reasons why design was split this way:
+1. Bob's overarching goal was to find out "Why does this drug work for some patients but not others?" using their blood samples to find trends
+2. Subject metadata like sex, condition, and treatment are facts about a person that do not change between samples
+3. Scalability (check next section for explanation)
 
 Given this, it made sense to create a 1 to many relationship between subject->*samples. Transforming the data this way segued nicely into the following steps, as there was a clear link between a subject to their blood's makeup (frequency table). Really, only a table join on the subject_id -> then a melt was needed (for reshaping). 
 
@@ -29,21 +29,18 @@ With this design, the following statistical analyses were possible with the same
 
 **AREAS WHERE DATABASE DESIGN SCALES:**
 
-If Bob wanted to run another round of samples, they would just get added to the sample table without schema changes. They would also map to their corresponding subjects neatly.
+- If Bob wanted to run another round of samples, they would just get added to the sample table without schema changes. They would also map to their corresponding subjects neatly.
 
-Vice versa if Bob wanted to add more subjects.
+- Vice versa applies if Bob wanted to add more subjects to the study
 
-Even across 1000s of trials and millions of new samples, filter and join queries' runtime would run quickly.
+- Even across 1000s of trials and millions of new samples, filter and join queries' runtime would run quickly.
 
 **AREAS WHERE DATABASE DESIGN DOESN'T SCALE**
 
-If Bob wanted to start tracking a sixth cell population, an ALTER TABLE would be needed to add a new column. This would leave NULLs on past data
-
-The fix: it'd make sense to break samples into two different tables: samples and cellcounts. The sample table would have columns sample_id*, subject_id, time_from_treatment start. The cellcounts table would have sample_id, populationtype, and counts.
-
-Pros: No alter tables to introduce new columns and NULL values. New cell populations would simply be a new row add in cellcounts.
-
-Cons: more extra joins would have to be made to draw correlations
+- If Bob wanted to start tracking a sixth cell population, an ALTER TABLE would be needed to add a new column. This would leave NULLs on past data
+    - The fix: it'd make sense to break samples into two different tables: samples and cellcounts. The sample table would have columns sample_id*, subject_id, time_from_treatment start. The cellcounts table would have sample_id, populationtype, and counts.
+    -     Pros: No alter tables to introduce new columns and NULL values. New cell populations would simply be a new row add in cellcounts.
+    -     Cons: more extra joins would have to be made to draw correlations
 
 **CODE STRUCTURE:**
 
@@ -57,24 +54,21 @@ For grading purposes, most of the bulk is separated by function in analysis.py. 
 
 But here's the break down:
 
-load_data.py
-  Database initialization and CSV ingestion only. Turns given CSV in root into database design described above.
+- load_data.py
+-     Database initialization and CSV ingestion only. Turns given CSV in root into database design described above.
 
-analysis.py
-  Logic layer. Each step that Bob outlines for data analysis is it's own separate function.
+- analysis.py
+-     Logic layer. Each step that Bob outlines for data analysis is it's own separate function.
+-     NOTE: statistical significance (p value of <.05) was factored in for comparisons.
+-     Feel free to run associated test files
 
-  NOTE: statistical significance (p value of <.05) was factored in for comparisons. 
+- pipeline.py
+-     Orchestration layer as per requurements to build DB, run analyses, and generate artifacts.
 
-  Feel free to run the other test files as well.
+- dashboard.py
+-     Streamlit UI only. Presentation layer in case you don't want to click through all 10 files manually.
 
-pipeline.py
-  Orchestration layer as per requurements to build DB, run analyses, and generate artifacts.
-
-dashboard.py
-  Streamlit UI only. Presentation layer in case you don't want to click through all 10 files manually.
-
-If Bob were real, I would be interested in working iteratively with Bob to understand his work, then create a requirements/software off of his needs. It'd also give me a better idea of how to structure code to scale/maintain better. For now, the grader was my top priority.
-
+Note: If Bob were real, I would be interested in working iteratively with Bob to understand his work, and write software that grows with his needs.
 
 **THANK YOU FOR YOUR TIME**
 
