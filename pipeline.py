@@ -46,11 +46,13 @@ def main():
             lower_whisker = grp[grp >= q1 - 1.5 * iqr].min()
             upper_whisker = grp[grp <= q3 + 1.5 * iqr].max()
             stats_text = (
-                f"Min: {lower_whisker:.2f}<br>"
-                f"Q1: {q1:.2f}<br>"
-                f"Median: {grp.median():.2f}<br>"
+                f"Max: {grp.max():.2f}<br>"
+                f"Upper Fence: {upper_whisker:.2f}<br>"
                 f"Q3: {q3:.2f}<br>"
-                f"Max: {upper_whisker:.2f}"
+                f"Median: {grp.median():.2f}<br>"
+                f"Q1: {q1:.2f}<br>"
+                f"Lower Fence: {lower_whisker:.2f}<br>"
+                f"Min: {grp.min():.2f}"
             )
             fig.add_annotation(
                 x=response_val,
