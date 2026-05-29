@@ -157,8 +157,8 @@ with tabs[1]:
             fig.update_layout(
                 showlegend=False,
                 margin=dict(t=40, b=20, l=20, r=20),
-                title_font_size=13,
-                title_font_color="#333",
+                title_font_size=16,
+                title_font_color="white",
             )
             col.plotly_chart(fig, use_container_width=True)
 
