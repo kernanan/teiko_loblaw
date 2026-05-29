@@ -1,7 +1,7 @@
 Hi everyone! This is Kernan, I had a great time completing this assignment! Thank you for taking the time to review my work, and I hope we get the chance to talk soon :]
 
 
-INSTRUCTIONS:
+**INSTRUCTIONS:**
 
 To run my program run the following 3 commands:
 
@@ -14,7 +14,7 @@ To run my program run the following 3 commands:
     - Note that I used streamlit for scopesake, building out an React/Angular frontend + API layer would also an option!
 
 
-DATABASE DESIGN: 
+**DATABASE DESIGN: **
 
 My SQL design is made up of two tables: Subjects and Samples.
 
@@ -27,7 +27,7 @@ Given this, it made sense to create a 1 to many relationship between subject->*s
 
 With this design, the following statistical analyses were possible with the same join (and just a few additional filtering/grouping).
 
-AREAS WHERE DATABASE DESIGN SCALES:
+**AREAS WHERE DATABASE DESIGN SCALES:**
 
 If Bob wanted to run another round of samples, they would just get added to the sample table without schema changes. They would also map to their corresponding subjects neatly.
 
@@ -35,7 +35,7 @@ Vice versa if Bob wanted to add more subjects.
 
 Even across 1000s of trials and millions of new samples, filter and join queries' runtime would run quickly.
 
-AREAS WHERE DATABASE DESIGN DOESN'T SCALE
+**AREAS WHERE DATABASE DESIGN DOESN'T SCALE**
 
 If Bob wanted to start tracking a sixth cell population, an ALTER TABLE would be needed to add a new column. This would leave NULLs on past data
 
@@ -45,7 +45,7 @@ Pros: No alter tables to introduce new columns and NULL values. New cell populat
 
 Cons: more extra joins would have to be made to draw correlations
 
-CODE STRUCTURE:
+**CODE STRUCTURE:**
 
 Since you (the grader) are the true end user, I structured my code to be as easy to grade as possible. With this it's also easily scalable/maintainable, as the following 4 files own respective responsibilities between:
 1. data ingestion
@@ -76,7 +76,7 @@ dashboard.py
 If Bob were real, I would be interested in working iteratively with Bob to understand his work, then create a requirements/software off of his needs. It'd also give me a better idea of how to structure code to scale/maintain better. For now, the grader was my top priority.
 
 
-THANK YOU FOR YOUR TIME
+**THANK YOU FOR YOUR TIME**
 
 I'm very interested to get feedback from the team. I hope we can talk soon, thanks!
 
