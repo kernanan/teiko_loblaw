@@ -1,18 +1,15 @@
-Hi everyone! This is Kernan, I had a great time completing this assignment! Thank you for taking the time to review my work, and I hope we get the chance to talk soon :)
+Hi everyone! This is Kernan, I had a great time completing this assignment! Thank you for taking the time to review my work, and I hope we get the chance to talk soon :]
 
 
 INSTRUCTIONS:
 
-To run my program run the following 2 steps and 3 commands:
-1. Clone the repository:
-   git clone <repo-url> 
-2. make setup
+To run my program run the following 3 commands:
+
+1. make setup
     - this will install the dependencies that are part of my project
-3. Place cell-count.csv in the root directory of the project
-    - The one given by default 
-4. make pipeline
+2. make pipeline
     - this will populate the outputs/.. directory with all the boxplot.pngs and csv files you're probably looking for
-5. make dashboard
+3. make dashboard
     - if you'd like to see all this data in a web application
     - Note that localhost URLs may not work in GitHub Codespaces
     - Note that I used streamlit for timesake, but if it was in the client's specifications, building out an React/Angular frontend + API layer would be possible
